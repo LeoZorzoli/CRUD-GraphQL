@@ -35,6 +35,10 @@ const typeDefs = gql`
       me: User
   }
 
+  type Subscription {
+    personAdded: Person!
+  }
+
   type Mutation {
     addPerson(
       name: String!

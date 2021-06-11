@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { gql, useLazyQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import { FIND_PERSON } from '../graphql/queries';
 
 const Persons = ({ persons }) => {

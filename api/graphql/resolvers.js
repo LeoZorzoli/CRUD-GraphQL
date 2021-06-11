@@ -1,6 +1,9 @@
 const { UserInputError } = require('apollo-server');
+const { PubSub } = require('apollo-server');
 const Person = require('../models/Person');
 const User = require('../models/User');
+
+const pubsub = new PubSub();
 
 const jwt = require('jsonwebtoken');
 
@@ -45,6 +48,8 @@ const resolvers = {
             invalidArgs: args,
           })
         }
+
+        pubsub.publish('PERSON_ADDED', { personAdded: person })
   
         return person
       },
@@ -103,7 +108,12 @@ const resolvers = {
 
         return currentUser;
       }
-    }
+    },
+    Subscription: {
+      personAdded: {
+        subscribe: () => pubsub.asyncIterator(['PERSON_ADDED'])
+      },
+    },
   };
   
   module.exports = { resolvers };
